@@ -119,12 +119,83 @@
 
   // Return all elements of an array that don't pass a truth test.
   _.reject = function(collection, test) {
+    return _.filter(collection, (ele) => {
+      return !test(ele);
+    });
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
+    /*
+    input: array and a predicate
+    output: an array of all items that fail predicate
+    constraints: use the filter function
+    */
   };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array, isSorted, iterator) {
+    let storage = [];
+    let iteratedStorage = [];
+    // if (arguments[1] === undefined) {
+    //   array.forEach(function(ele, ind) {
+    //     if (array[ind] !== array[ind - 1]) {
+    //       storage.push(ele);  
+    //     }
+    //   });
+    // } else if (arguments[1]) {
+    //   console.log('correct if/else')
+    //   let iteratedStorage = [];
+    //   array.forEach(function(ele, index) {
+    //     iteratedStorage.push(iterator(ele));
+    //   });
+    //   iteratedStorage.forEach(function(ele, index) {
+    //     if (iteratedStorage[index] !== iteratedStorage[index - 1]) {
+    //       storage.push(array[index]);  
+    //     }
+    //   });
+    if (arguments[1] !== undefined) {
+      
+      let iterator = arguments[1];
+      array.forEach(function(ele, index) {
+        if (_.indexOf(iteratedStorage, iterator(ele)) === -1) {
+          iteratedStorage.push(iterator(ele));
+          storage.push(ele);
+        }
+      });  
+    } else if (arguments[1] === undefined) {
+      array.forEach(function(ele, index) {
+        if (_.indexOf(storage, ele) === -1) {
+          storage.push(ele);
+        }
+      });
+    }
+    return storage;
+  /*
+  input: array, boolean of isSorted, iterator func
+  output: array without duplicates when iterator applied (if applicable)
+  
+  create a storage array
+  iterate over array using for each
+    if isSorted is true and iterator is undefined
+      iterate over the array using foreach
+      if element at i is not equal to element at i-1
+        push element into storage array
+    if isSorted is true and iterator is defined
+      create a iteratedStorage array
+      iterate over the array using foreach
+        push iterated element into iteratedstorage array
+      iterate over iteratedstorage array
+        if element at i is not equal to element at i-1
+          push array at index i into storage array
+    else if isSorted is false iterator is not undefined
+      apply iterator to each element and apply indexof to check if its in the storage
+      if indexof is equal to -1
+        push into storage array
+    else (issorted is false and iterator is undefined)
+      apply indexof to each element to check if its in storage
+      iff indexof is equal to -1
+        push into storage array
+  return storageArray
+  */
   };
 
 
