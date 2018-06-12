@@ -33,7 +33,7 @@
     describe('first', function() {
 
       it('should be able to pull out the first element of an array', function() {
-        expect(_.first([1, 2, 3])).to.equal([1]);
+        expect(_.first([1, 2, 3])).to.equal(1);
       });
 
       it('should accept an index argument', function() {
