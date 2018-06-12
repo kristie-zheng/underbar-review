@@ -98,6 +98,23 @@
 
   // Return all elements of an array that pass a truth test.
   _.filter = function(collection, test) {
+    //input: arr, pred test
+    //output: arr w/ only elements passing predicate
+
+  /* pseudo
+    results array
+    return _.each on collection, func body 
+      that pushes passing eles into results
+        
+    return results
+  */
+    let results = [];
+    _.each(collection, (ele) => {
+      if (test(ele) === true) {
+        results.push(ele);
+      }
+    });
+    return results;
   };
 
   // Return all elements of an array that don't pass a truth test.
