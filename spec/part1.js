@@ -229,7 +229,7 @@
       });
 
       it('returns -1 when the target cannot be found not in the list', function() {
-        var numbers = [1,2,3,4];
+        var numbers = [1, 2, 3, 4];
 
         expect(_.indexOf(numbers, 35)).to.equal(-1);
       });
@@ -376,7 +376,7 @@
       });
 
       it('should apply a function to every value in an array', function() {
-        var multiplyByTwo = function(num) { return num*2; };
+        var multiplyByTwo = function(num) { return num * 2; };
 
         expect(_.map([1, 2, 3], multiplyByTwo)).to.eql([2, 4, 6]);
       });
