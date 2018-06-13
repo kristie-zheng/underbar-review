@@ -432,26 +432,39 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
-    
-    let alreadyCalledArgs = {};
-    let result;
-    return function() {
-      console.log(arguments);
-      if (alreadyCalledArgs[JSON.stringify(arguments)] === undefined) {
-        alreadyCalledArgs[JSON.stringify(arguments)] = func.apply(this, arguments);
-        result = func.apply(this, arguments);
-        console.log(alreadyCalledArgs);
-      } else {
-        console.log('executes here')
-        result = alreadyCalledArgs[arguments];
-      }
-      // console.log(func.apply(this, arguments))
-      // if (alreadyCalledArgs[func.apply(null, arguments)]) {
+    // let hasBeenUsed = false;
+    // let args = [...arguments];
+    // let alreadyCalledArgs = {};
+    // let result;
+    // // console.log(typeof arguments);
+    // return function() {
+    //   console.log(JSON.stringify(arguments));
+    //   if (alreadyCalledArgs[JSON.stringify(arguments)] === undefined) {
+    //     alreadyCalledArgs[JSON.stringify(arguments)] = func.apply(this, arguments);
+    //     result = func.apply(this, arguments);
+    //     hasBeenUsed = true;
+    //     console.log('the called args obj is ' + JSON.stringify(alreadyCalledArgs));
+    //   } else {
+    //     //console.log('executes here')
+    //     result = alreadyCalledArgs[arguments];
+    //   }
+    //   // console.log(func.apply(this, arguments))
+    //   // if (alreadyCalledArgs[func.apply(null, arguments)]) {
 
-      // }
-      return result;
-    };
+    //   // }
+    //   return result;
+    // };
+    var calledArgs = {};
+    return function() {
+      var args = JSON.stringify(arguments); 
+       if (calledArgs[args] === undefined) {
+          calledArgs[args] = func.apply(null, arguments);
+        }
+        return calledArgs[args];
+      }
   };
+
+
 
   // Delays a function for the given number of milliseconds, and then calls
   // it with the arguments supplied.
@@ -479,17 +492,24 @@
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
     let arrCopy = array.slice();
-    for (let i = 0; i < array.length; i++) {
-      let random = Math.floor(Math.random() * array.length - 1);
-      let currentEle = array[i];
-      let temp = currentEle;
-      array[i] = array[random];
-      array[random] = temp; 
+    for (let i = 0; i < arrCopy.length; i++) {
+      let random = Math.floor(Math.random() * arrCopy.length);
+      let currentEle = arrCopy[i];
+      let temp = arrCopy[i];
+      arrCopy[i] = arrCopy[random];
+      arrCopy[random] = temp; 
     }
-    
+    return arrCopy;
   };
 
-
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+}
   /**
    * ADVANCED
    * =================
