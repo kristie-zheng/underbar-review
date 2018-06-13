@@ -265,11 +265,11 @@
     } else if (collection.constructor === Object) {
       _.each(collection, function(ele, index) {
         if (accumulator !== undefined) {
-          accumulator = iterator(accumulator, element);
+          accumulator = iterator(accumulator, ele);
         } else {
           accumulator = collection.values[0];
           if (index !== 0) {
-            accumulator = iterator(accumulator, element);
+            accumulator = iterator(accumulator, ele);
           }
         }
       });
@@ -306,6 +306,17 @@
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
+    
+    return _.reduce(collection, function(accumulator, element) {
+      if (!iterator) {
+        iterator = _.identity;
+      }
+      if (Boolean(iterator(element)) === false) {
+        accumulator = false;
+        return accumulator;
+      }
+      return accumulator;
+    }, true);
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
