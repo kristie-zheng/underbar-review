@@ -251,16 +251,29 @@
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
     
-    collection.forEach(function(element, index) {
-      if (accumulator !== undefined) {
-        accumulator = iterator(accumulator, element);
-      } else {
-        accumulator = collection[0];
-        if (index !== 0) {
-          accumulator = iterator(accumulator, element);  
+    if (collection.constructor === Array) {
+      collection.forEach(function(element, index) {
+        if (accumulator !== undefined) {
+          accumulator = iterator(accumulator, element);
+        } else {
+          accumulator = collection[0];
+          if (index !== 0) {
+            accumulator = iterator(accumulator, element);  
+          }
         }
-      }
-    });
+      });
+    } else if (collection.constructor === Object) {
+      _.each(collection, function(ele, index) {
+        if (accumulator !== undefined) {
+          accumulator = iterator(accumulator, element);
+        } else {
+          accumulator = collection.values[0];
+          if (index !== 0) {
+            accumulator = iterator(accumulator, element);
+          }
+        }
+      });
+    }
     return accumulator;
   /*
   input: collection (array), iterator function, storage accumulator (optional)
