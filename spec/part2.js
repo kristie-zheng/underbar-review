@@ -273,7 +273,7 @@
         // Replace this line with an `expect` statement that tests
         // the behavior described by the `it` string
         // throw new Error('This test is missing.');
-        expect(_.defaults({a: 1, b: 2}, {c: 4}).to.eql({a: 1, b: 2, c: 4}));
+        expect(_.defaults({a: 1, b: 2}, {c: 4})).to.eql({a: 1, b: 2, c: 4});
       });
 
       it('should not copy a property if that key is already set on the target', function() {
